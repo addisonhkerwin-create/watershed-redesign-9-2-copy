@@ -328,7 +328,7 @@ input[type=range]::-moz-range-progress { background: transparent; }
 .maplibregl-popup-content { border: 1px solid var(--ink); border-radius: 0; box-shadow: none; }
 .maplibregl-popup-close-button { font-size: 24px; width: 30px; height: 30px; }
 .story-marker::before { box-shadow: none; }
-.site-footer { margin: 0 3.5vw; padding: 22px 0; border-top: 1px solid var(--ink); display: flex; justify-content: space-between; gap: 24px; font-size: .75rem; }
+.site-footer { margin: 0 3.5vw; padding: 22px 0; border-top: 1px solid var(--ink); border-bottom: 3px solid var(--ink); display: flex; justify-content: space-between; gap: 24px; font-size: .75rem; }
 .site-footer span:first-child { font-weight: 700; }
 .layer-toggle {
   width: max-content;
