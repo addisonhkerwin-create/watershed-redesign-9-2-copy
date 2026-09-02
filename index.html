@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="An editorial map exploring U.S. agriculture, water pollution, and the systems that make both legible."
+  />
+  <title>Agriculture × Water</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/maplibre-gl@6.6.0/dist/maplibre-gl.css"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="masthead"><a href="#" class="wordmark">FIELD / NOTES</a><span>U.S. WATERSHED ATLAS</span><a href="#map-heading">Explore the map ↘</a></div>
+    <div class="title-row"><h1>Agriculture <span>× Water</span></h1><p class="dek">Making agricultural landscapes<br>and water pollution visible.</p></div>
+    <div class="header-foot"><span>LAND USE. WATER QUALITY. SHARED GEOGRAPHIES.</span><span>USDA 2022 / EPA ATTAINS</span></div>
+  </header>
+
+  <main>
+    <section class="map-section" aria-labelledby="map-heading">
+      <div class="map-copy">
+        <p class="section-label">01 / EXPLORE THE LAYERS</p>
+        <h2 id="map-heading">What’s on<br>the land?</h2>
+        <p>Select layers. Slide to reveal overlaps.</p>
+        <div id="agricultural-controls" role="group" aria-label="Agricultural layers"></div>
+        <details class="reading-notes"><summary>How to read this map</summary>
+          <p class="data-note">Layers draw in the order listed, from top to bottom. Each starts at 60% opacity. Blended colors are not a combined measurement; compare percentages in the watershed readout.</p>
+          <p class="data-note">Legends show full opacity. Missing values are transparent. Rivers, lakes, and impairment lines stay above agriculture. Crop percentages describe cropland; treatment percentages describe farmland area, not chemical amounts.</p>
+          <p class="data-note">USDA NASS, 2022 Census of Agriculture, Watershed report. Boundaries: USDA/NWCC. Spatial overlap does not prove causation.</p>
+        </details>
+
+        <fieldset class="water-controls">
+          <legend>Impaired waterways</legend>
+          <p id="base-water-status" class="water-status" aria-live="polite">Loading background rivers and lakes…</p>
+          <p class="data-note">Major rivers and lakes are shown in blue-gray at national scale.
+            These background features do not indicate water quality.</p>
+          <label><input id="toggle-nutrient" type="checkbox" disabled>
+            <span class="water-line nutrient-line" aria-hidden="true"></span>Nutrients</label>
+          <p id="nutrient-status" class="water-status" aria-live="polite">Waiting for map…</p>
+          <label><input id="toggle-pesticide" type="checkbox" disabled>
+            <span class="water-line pesticide-line" aria-hidden="true"></span>Pesticides</label>
+          <p id="pesticide-status" class="water-status" aria-live="polite">Waiting for map…</p>
+          <p class="data-note">EPA ATTAINS assessment data. Lines mark waterways
+            with the selected cause of impairment, not pollutant concentrations.
+            Both causes may occur on the same waterway. An absent line does not
+            establish clean water or complete monitoring coverage.</p>
+        </fieldset>
+
+        <fieldset class="water-controls">
+          <legend>Story locations</legend>
+          <p>Algal bloom stories</p>
+          <p id="stories-status" class="water-status" aria-live="polite">Loading stories…</p>
+          <p class="data-note">The small round markers stay on the map. Select one to read its story.
+            These six curated locations are illustrative case studies, not a live bloom tracker or mapped bloom extents.</p>
+        </fieldset>
+
+      </div>
+
+      <div class="map-stage">
+        <div class="map-topline"><span>THE CONNECTED LANDSCAPE</span><span>CONTIGUOUS UNITED STATES ↗</span></div>
+        <div class="map-frame"><div id="map" aria-label="Interactive map of HUC6 watersheds"></div></div>
+        <div class="map-bottomline"><span><i class="story-key"></i> Algal bloom stories · select a dot</span><span>Hover or tap a watershed to inspect</span></div>
+        <div class="map-readout">
+          <div class="hover-card" id="hover-card"><p class="hover-label">02 / WATERSHED READOUT</p><p class="hover-name" id="hover-name">Every watershed tells a story.</p><p class="hover-id" id="hover-id"></p><p class="hover-value" id="hover-value"></p></div>
+          <div class="status-card" id="status-card" aria-live="polite"><span class="status-dot" aria-hidden="true"></span><span id="status-text">Loading watershed map…</span></div>
+        </div>
+        <p class="map-caveat">Shared geography, not proof of causation. Explore the patterns, then read the context.</p>
+      </div>
+    </section>
+    <section class="sources-panel" aria-labelledby="sources-heading">
+      <h2 id="sources-heading">Sources &amp; methods</h2>
+      <p>MapLibre GL JS · CARTO Positron basemap · OpenStreetMap contributors · USDA NASS 2022 Census of Agriculture · USDA/NWCC watershed boundaries · EPA ATTAINS impairment assessments · Natural Earth rivers and lakes · curated algal bloom story sources.</p>
+      <p>Crop acreage and treatment percentages are from the 2022 Census of Agriculture. Spatial overlap does not prove causation; impairment lines indicate selected causes, not pollutant concentrations.</p>
+      <nav aria-label="Source links">
+        <a href="https://maplibre.org/" target="_blank" rel="noopener noreferrer">MapLibre</a>
+        <a href="https://carto.com/basemaps/" target="_blank" rel="noopener noreferrer">CARTO</a>
+        <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>
+        <a href="https://www.nass.usda.gov/" target="_blank" rel="noopener noreferrer">USDA NASS</a>
+        <a href="https://www.nrcs.usda.gov/" target="_blank" rel="noopener noreferrer">USDA/NWCC</a>
+        <a href="https://www.epa.gov/waterdata/attains" target="_blank" rel="noopener noreferrer">EPA ATTAINS</a>
+        <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer">Natural Earth</a>
+      </nav>
+    </section>
+  </main>
+  <footer class="site-footer"><span>AGRICULTURE × WATER</span><span>A closer look at the land we share.</span><a href="#">Back to top ↑</a></footer>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
