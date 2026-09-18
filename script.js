@@ -1,7 +1,7 @@
 import * as maplibregl from "https://unpkg.com/maplibre-gl@6.6.0/dist/maplibre-gl.mjs";
 
 const TREATMENTS = {
-  corn: { name: "Corn", field: "corn_pct_cropland_2022", unit: "cropland in corn", description: "Corn acreage as a share of total cropland in 2022.", colors: ["#fff176", "#fec44f", "#fd8d3c", "#f03b20", "#bd0026"] },
+  corn: { name: "corn", field: "corn_pct_cropland_2022", unit: "cropland in corn", description: "Corn acreage as a share of total cropland in 2022.", colors: ["#fff176", "#fec44f", "#fd8d3c", "#f03b20", "#bd0026"] },
   soybean: { name: "Soybeans", field: "soybean_pct_cropland_2022", unit: "cropland in soybeans", description: "Soybean acreage as a share of total cropland in 2022.", colors: ["#e9bd45", "#d78a32", "#bd532d", "#98342f", "#682536"] },
   fertilizer: { name: "Fertilizer treatment", description: "Share of land in farms treated with commercial fertilizer, lime, and soil conditioners in 2022.", colors: ["#f0e883", "#9bc578", "#53a68a", "#16857e", "#005f70"] },
   manure: { name: "Manure treatment", description: "Share of land in farms treated with manure in 2022.", colors: ["#ccefd9", "#8bc3be", "#559ba9", "#32738f", "#284d73"] },
@@ -31,7 +31,7 @@ function setStatus(message, state = "loading") {
 function showWatershed(id) {
   selectedId = id;
   const props = featuresById?.get(id)?.properties;
-  hoverName.textContent = props?.name || "Hover or tap a watershed";
+  hoverName.textContent = props?.name || "tap a watershed";
   hoverId.textContent = props ? `HUC6 ${props.id}` : "";
   hoverValue.textContent = !props ? "" : LAYER_ORDER.filter(key => layerState[key].enabled).map(key => {
     const value = props[field(key)];
@@ -95,7 +95,7 @@ function initializeAgriculture() {
     const details = document.createElement("details");
     details.open = state.enabled;
     const summary = document.createElement("summary");
-    summary.textContent = "Legend & measure";
+    summary.textContent = "";
     const ramp = document.createElement("div"); ramp.className = "legend-gradient";
     ramp.style.background = `linear-gradient(to right, ${treatment.colors.join(", ")})`;
     const endpoints = document.createElement("div"); endpoints.className = "legend-endpoints";
@@ -135,7 +135,7 @@ map.on("load", async () => {
         map.setLayoutProperty(layer.id, "visibility", "none");
       }
     }
-    map.setPaintProperty("water", "fill-color", "#dfe5e7");
+    map.setPaintProperty("water", "fill-color", "#9edff0");
     map.setPaintProperty("waterway", "line-color", "#8da9b5");
     map.setPaintProperty("waterway", "line-width", ["interpolate", ["linear"], ["zoom"], 3, 0.7, 8, 1.1, 14, 2]);
     setStatus("Loading watersheds and treatment data…");
@@ -264,7 +264,7 @@ async function initializeStories() {
         .setLngLat([story.longitude, story.latitude]).setPopup(popup);
     });
     for (const marker of markers) marker.addTo(map);
-    status.textContent = `${stories.length} permanent story locations`;
+    status.textContent = `${stories.length} case study locations`;
   } catch (error) {
     status.textContent = "Could not load stories. Refresh the page to retry.";
     console.error(error);
